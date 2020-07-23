@@ -21,8 +21,13 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		name = "Guest"
 	}
 
+	hostname := os.Getenv("HOSTNAME")
+	if hostname == "" {
+		hostname = "$HOSTNAME not specified"
+	}
+
 	log.Printf("Received request for %s\n", name)
-	w.Write([]byte(fmt.Sprintf("Hello, %s\n", name)))
+	w.Write([]byte(fmt.Sprintf("Hello, %s\n(%s)\n", name, hostname)))
 }
 
 func healthHandler(w http.ResponseWriter, r *http.Request) {
