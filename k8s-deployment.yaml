@@ -1,0 +1,51 @@
+# kubectl apply -f k8s-deployment.yaml
+---
+apiVersion: apps/v1
+kind: Deployment # Type of kubernetes resource
+metadata:
+  name: go-kubernetes # Name of kubernetes resource
+spec:
+  replicas: 3 # Number of pods to run at any given time
+  selector:
+    matchLabels:
+      app: go-kubernetes # This deployment applies to any pod matching the specified label
+  template: # This deployment will create a set of pods using the configuration in this templates
+    metadata:
+      labels: # The labels that will be applied to all the pods in this deployment
+        app: go-kubernetes
+    spec: # Spec for the container which will run in the pod
+      containers:
+      - name: go-kubernetes
+        image: jasonody/go-kubernetes:1.0.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8030 # Should match the port number the Go application listens on
+        livenessProbe: # To check the health of the pod
+          httpGet:
+            path: /health
+            port: 8030
+            scheme: HTTP
+          initialDelaySeconds: 5
+          periodSeconds: 15
+          timeoutSeconds: 5
+        readinessProbe: # To check if the pod is ready to serve traffic
+            httpGet:
+              path: /readiness
+              port: 8030
+              scheme: HTTP
+            initialDelaySeconds: 5
+            timeoutSeconds: 1
+
+---
+apiVersion: v1
+kind: Service # Type of kubernetes resource
+metadata:
+  name: go-kubernetes-service # Name of the resource
+spec:
+  type: NodePort # A port is opened in each node in your cluster via kube proxy
+  ports: # Take incoming HTTP requests on port 9030 and forward them to the target port of 8030
+  - name: http
+    port: 9030
+    targetPort: 8030
+  selector:
+    app: go-kubernetes # Map any pods with label "app=go-kubernetes" to this service
