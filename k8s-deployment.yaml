@@ -16,7 +16,7 @@ spec:
     spec: # Spec for the container which will run in the pod
       containers:
       - name: go-kubernetes
-        image: jasonody/go-kubernetes:1.0.0
+        image: jasonody/go-kubernetes:1.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8030 # Should match the port number the Go application listens on
