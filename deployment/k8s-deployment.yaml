@@ -1,4 +1,6 @@
-# kubectl apply -f k8s-deployment.yaml
+# kubectl apply -f deployment/k8s-deployment.yaml
+
+# This deployment pulls the go-kubernetes image from the Docker Hub registry
 ---
 apiVersion: apps/v1
 kind: Deployment # Type of kubernetes resource
