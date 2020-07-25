@@ -1,7 +1,10 @@
 # go-kubernetes
 Deploying a Go app on k8s
 
-[Source](https://www.callicoder.com/deploy-containerized-go-app-kubernetes/)
+Source: [Docker and Kubernetes](https://www.callicoder.com/deploy-containerized-go-app-kubernetes/)
+
+Source: [Tilt](https://docs.tilt.dev/example_go.html) [Github](https://github.com/tilt-dev/tilt-example-go)
+
 
 ## Deploy locally for dev
 #### Deploy
