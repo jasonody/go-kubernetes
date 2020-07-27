@@ -19,7 +19,7 @@ Source: [Tilt](https://docs.tilt.dev/example_go.html) [Github](https://github.co
 `kubectl apply -f deployment/k8s-deployment.yaml`
 
 #### Delete deployment
-`kubectl delete deployment go-kubernetes`
+`kubectl delete -f deployment/k8s-deployment.yaml`
 
 ## Testing Go app server
 - Get the service's port as an env var: `kubectl get services | grep go-kubernetes-service | egrep -o ':(.*?)\/' | grep '[0-9]'`
